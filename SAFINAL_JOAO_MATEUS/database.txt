@@ -1,0 +1,12 @@
+create schema BANCODASA;
+
+use bancodasa;
+
+create table Sensor(
+ID_LEITURA int auto_increment primary key,
+HORARIO varchar(20),
+TIPO varchar(50),
+VALOR varchar(10)
+);
+
+select * from sensor;

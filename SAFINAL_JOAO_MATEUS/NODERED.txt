@@ -1,0 +1,605 @@
+[
+    {
+        "id": "c708013bf9050a12",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d9f6ec7d71833627",
+        "type": "delay",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "3dc1e0ec2c905739"
+            ]
+        ]
+    },
+    {
+        "id": "3dc1e0ec2c905739",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 1",
+        "func": "msg.topic = \"SELECT VALOR FROM sensor where tipo = 'Umidade' ORDER BY HORARIO DESC LIMIT 1\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 100,
+        "wires": [
+            [
+                "3b8707c698edbbba"
+            ]
+        ]
+    },
+    {
+        "id": "5db464e96b031022",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 6",
+        "func": "msg.payload = JSON.parse(msg.payload);\nmsg.payload = msg.payload[0].VALOR;\nmsg.payload.value = msg.payload;\nmsg.payload = {\n    \"variable\": \"Humidade\",\n    \"unit\": \"%\",\n    \"value\": msg.payload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 100,
+        "wires": [
+            [
+                "abb5c077e5d4e909"
+            ]
+        ]
+    },
+    {
+        "id": "abb5c077e5d4e909",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1150,
+        "y": 100,
+        "wires": [
+            [
+                "2d2b865114bbbd6a"
+            ]
+        ]
+    },
+    {
+        "id": "2d2b865114bbbd6a",
+        "type": "mqtt out",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "topic": "data/humi",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "29d4e49097d414a6",
+        "x": 1300,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d996b81596ab7426",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 850,
+        "y": 100,
+        "wires": [
+            [
+                "5db464e96b031022"
+            ]
+        ]
+    },
+    {
+        "id": "d17b71914b6c1147",
+        "type": "delay",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "f489668f0b755145"
+            ]
+        ]
+    },
+    {
+        "id": "f489668f0b755145",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 7",
+        "func": "msg.topic = \"SELECT VALOR FROM sensor where tipo = 'Temperatura' ORDER BY HORARIO DESC LIMIT 1\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 240,
+        "wires": [
+            [
+                "3efbc23b4a12fe44"
+            ]
+        ]
+    },
+    {
+        "id": "879d5e0f423b6b14",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 8",
+        "func": "msg.payload = JSON.parse(msg.payload);\nmsg.payload = msg.payload[0].VALOR;\nmsg.payload.value = msg.payload;\nmsg.payload = {\n    \"variable\": \"Temperatura\",\n    \"unit\": \"°C\",\n    \"value\": msg.payload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 240,
+        "wires": [
+            [
+                "cc52ae49a966ccb8"
+            ]
+        ]
+    },
+    {
+        "id": "cc52ae49a966ccb8",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1130,
+        "y": 240,
+        "wires": [
+            [
+                "e64360ac1284c2e7"
+            ]
+        ]
+    },
+    {
+        "id": "e64360ac1284c2e7",
+        "type": "mqtt out",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "topic": "data/temp",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "29d4e49097d414a6",
+        "x": 1280,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2b8a0eb001f345d8",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 240,
+        "wires": [
+            [
+                "879d5e0f423b6b14"
+            ]
+        ]
+    },
+    {
+        "id": "3647eaafa42042c9",
+        "type": "delay",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "7b41604f98bfacc9"
+            ]
+        ]
+    },
+    {
+        "id": "7b41604f98bfacc9",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 9",
+        "func": "msg.topic = \"SELECT VALOR FROM sensor where tipo = 'Umidade do Solo' ORDER BY HORARIO DESC LIMIT 1\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 380,
+        "wires": [
+            [
+                "52a907c0499ddf17"
+            ]
+        ]
+    },
+    {
+        "id": "69b0c82ac2182985",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 10",
+        "func": "msg.payload = JSON.parse(msg.payload);\nmsg.payload = msg.payload[0].VALOR;\nmsg.payload.value = msg.payload;\nmsg.payload = {\n    \"variable\": \"HumidadeDoSolo\",\n    \"unit\": \"%\",\n    \"value\": msg.payload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 380,
+        "wires": [
+            [
+                "c0606b2d470f3fb6"
+            ]
+        ]
+    },
+    {
+        "id": "c0606b2d470f3fb6",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1130,
+        "y": 380,
+        "wires": [
+            [
+                "b88a46c148023d33"
+            ]
+        ]
+    },
+    {
+        "id": "b88a46c148023d33",
+        "type": "mqtt out",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "topic": "data/humids",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "29d4e49097d414a6",
+        "x": 1290,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "9f9e85afca6b8b7e",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 380,
+        "wires": [
+            [
+                "69b0c82ac2182985"
+            ]
+        ]
+    },
+    {
+        "id": "684e8ae54ed0a1d9",
+        "type": "delay",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 500,
+        "wires": [
+            [
+                "516cd538f3d03a31"
+            ]
+        ]
+    },
+    {
+        "id": "516cd538f3d03a31",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 11",
+        "func": "msg.topic = \"SELECT VALOR FROM sensor where tipo = 'Luminosidade' ORDER BY HORARIO DESC LIMIT 1\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 500,
+        "wires": [
+            [
+                "72d766f4d452fe8c"
+            ]
+        ]
+    },
+    {
+        "id": "75ce8e16eb421861",
+        "type": "function",
+        "z": "c708013bf9050a12",
+        "name": "function 12",
+        "func": "msg.payload = JSON.parse(msg.payload);\nmsg.payload = msg.payload[0].VALOR;\nmsg.payload.value = msg.payload;\nmsg.payload = {\n    \"variable\": \"Luminosidade\",\n    \"unit\": \"%\",\n    \"value\": msg.payload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 500,
+        "wires": [
+            [
+                "da769c8e20f7a4a2"
+            ]
+        ]
+    },
+    {
+        "id": "da769c8e20f7a4a2",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1130,
+        "y": 500,
+        "wires": [
+            [
+                "23026b31c9eb7391"
+            ]
+        ]
+    },
+    {
+        "id": "23026b31c9eb7391",
+        "type": "mqtt out",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "topic": "data/lumi",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "29d4e49097d414a6",
+        "x": 1280,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2f268b6dc22aee1e",
+        "type": "json",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 500,
+        "wires": [
+            [
+                "75ce8e16eb421861"
+            ]
+        ]
+    },
+    {
+        "id": "3b8707c698edbbba",
+        "type": "mysql",
+        "z": "c708013bf9050a12",
+        "mydb": "29dccfc1692671aa",
+        "name": "",
+        "x": 680,
+        "y": 100,
+        "wires": [
+            [
+                "d9f6ec7d71833627",
+                "d996b81596ab7426"
+            ]
+        ]
+    },
+    {
+        "id": "3efbc23b4a12fe44",
+        "type": "mysql",
+        "z": "c708013bf9050a12",
+        "mydb": "29dccfc1692671aa",
+        "name": "",
+        "x": 660,
+        "y": 240,
+        "wires": [
+            [
+                "d17b71914b6c1147",
+                "2b8a0eb001f345d8"
+            ]
+        ]
+    },
+    {
+        "id": "52a907c0499ddf17",
+        "type": "mysql",
+        "z": "c708013bf9050a12",
+        "mydb": "29dccfc1692671aa",
+        "name": "",
+        "x": 660,
+        "y": 380,
+        "wires": [
+            [
+                "3647eaafa42042c9",
+                "9f9e85afca6b8b7e"
+            ]
+        ]
+    },
+    {
+        "id": "72d766f4d452fe8c",
+        "type": "mysql",
+        "z": "c708013bf9050a12",
+        "mydb": "29dccfc1692671aa",
+        "name": "",
+        "x": 660,
+        "y": 500,
+        "wires": [
+            [
+                "684e8ae54ed0a1d9",
+                "2f268b6dc22aee1e"
+            ]
+        ]
+    },
+    {
+        "id": "39d2d8b70dd72977",
+        "type": "inject",
+        "z": "c708013bf9050a12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 280,
+        "wires": [
+            [
+                "d9f6ec7d71833627",
+                "d17b71914b6c1147",
+                "3647eaafa42042c9",
+                "684e8ae54ed0a1d9"
+            ]
+        ]
+    },
+    {
+        "id": "29d4e49097d414a6",
+        "type": "mqtt-broker",
+        "name": "tagoio",
+        "broker": "mqtt.tago.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "29dccfc1692671aa",
+        "type": "MySQLdatabase",
+        "name": "localhost",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "bancodasa",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]
+
+
